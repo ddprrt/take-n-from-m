@@ -1,4 +1,4 @@
-use rand::prelude::*;
+use rand::seq::SliceRandom;
 use std::env;
 
 fn take_n_from_m(take: usize, from: u64) -> Vec<u64> {
@@ -28,4 +28,13 @@ fn main() {
             println!("Missing arguments, take {} from what?", chunk[0]);
         }
     }
+}
+
+#[test]
+fn test_take_n_from_m() {
+    let mut result = take_n_from_m(6, 45);
+    result.sort_by(|a, b| b.partial_cmp(a).unwrap());
+
+    assert_eq!(result.len(), 6);
+    assert!(result[0] < 45);
 }
